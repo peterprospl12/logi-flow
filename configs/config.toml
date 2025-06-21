@@ -1,0 +1,13 @@
+[database]
+url = "postgres://user:${DB_PASSWORD}@localhost:5432/logistic_bidding?sslmode=disable"
+
+[rabbitmq]
+url = "TODO"
+orders_commands_queue = "orders.commands"
+orders_events_queue = "orders.events"
+bids_commands_queue = "bids.commands"
+bids_events_queue = "bids.events"
+
+[api]
+port = 8080
+jwt_secret = "TODO"
