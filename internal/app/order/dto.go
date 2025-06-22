@@ -1,10 +1,14 @@
-package events
+package order
 
-type OrderCreated struct {
+type CreateOrderDTO struct {
 	ID        string  `json:"id"`
 	ShipperID string  `json:"shipper_id"`
 	From      string  `json:"from"`
 	To        string  `json:"to"`
 	Price     float64 `json:"price"`
-	Status    string  `json:"status"`
+}
+
+type AcceptBidDTO struct {
+	OrderID string
+	BidID   string
 }
