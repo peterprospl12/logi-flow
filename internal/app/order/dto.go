@@ -1,7 +1,6 @@
 package order
 
 type CreateOrderDTO struct {
-	ID        string  `json:"id"`
 	ShipperID string  `json:"shipper_id"`
 	From      string  `json:"from"`
 	To        string  `json:"to"`
