@@ -3,7 +3,6 @@ package order
 import "errors"
 
 var (
-	ErrEmptyID          = errors.New("order ID cannot be empty")
 	ErrEmptyShipperID   = errors.New("shipper ID cannot be empty")
 	ErrEmptyOrigin      = errors.New("origin cannot be empty")
 	ErrEmptyDestination = errors.New("destination cannot be empty")

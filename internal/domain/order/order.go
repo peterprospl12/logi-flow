@@ -8,7 +8,7 @@ import (
 type Order struct {
 	ID           uuid.UUID `json:"id"`
 	ShipperID    string    `json:"shipper_id"`
-	Origin       string    `json:"from"`
+	Origin       string    `json:"origin"`
 	Destination  string    `json:"destination"`
 	InitialPrice float64   `json:"price"`
 	Status       Status    `json:"status"`

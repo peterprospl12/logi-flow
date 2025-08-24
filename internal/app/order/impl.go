@@ -1,32 +1,38 @@
 package order
 
 import (
-	"github.com/peterprospl12/logi-flow/internal/domain/order"
-	"github.com/peterprospl12/logi-flow/internal/infra/queue"
+	"context"
+	"github.com/google/uuid"
+	domain "github.com/peterprospl12/logi-flow/internal/domain/order"
+	//"github.com/peterprospl12/logi-flow/internal/infra/queue"
 )
 
-type svc struct {
-	repo order.Repository
-	mq   queue.Publisher
+type service struct {
+	repo Repository
+	//publ queue.Publisher
 }
 
-func NewService(r order.Repository, mq queue.Publisher) Service {
-	return &svc{repo: r, mq: mq}
+func NewService(r Repository) Service {
+	return &service{repo: r}
 }
 
-func (s *svc) AcceptBid(cmd AcceptBidDTO) error {
-	o, err := s.repo.GetByID(cmd.OrderID)
-	if err != nil {
-		return err
+func (s *service) CreateOrder(ctx context.Context, cmd CreateOrderCommand) (*domain.Order, error) {
+	o := &domain.Order{
+		ID:           uuid.New(),
+		ShipperID:    cmd.ShipperID,
+		Origin:       cmd.ShipperID,
+		Destination:  cmd.Destination,
+		InitialPrice: cmd.InitialPrice,
+		Status:       domain.Created,
 	}
 
-}
-
-func (s *svc) CreateOrder(cmd CreateOrderDTO) error {
-	o, err := order.New(cmd.ShipperID, cmd.From, cmd.To, cmd.Price)
-	if err != nil {
-		return err
+	if err := s.repo.Save(ctx, o); err != nil {
+		return nil, err
 	}
 
-	return nil
+	return o, nil
+}
+
+func (s *service) GetOrders(ctx context.Context) ([]*domain.Order, error) {
+	return s.repo.List(ctx)
 }
